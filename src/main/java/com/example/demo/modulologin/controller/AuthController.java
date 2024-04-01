@@ -57,7 +57,7 @@ public class AuthController {
 
     @PostMapping("/obtenerRol")
     public ResponseEntity<RolResponse> verficaRol(@RequestBody LoginRequest request) {
-        
+        System.out.println(authService.verificarRol(request));
         return ResponseEntity.ok(authService.verificarRol(request));
     }
     

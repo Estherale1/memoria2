@@ -14,6 +14,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
@@ -35,16 +37,18 @@ public class User implements UserDetails {
     @Column(nullable = false)
     String username;
     @Column(nullable = false)
-    String lastname;
-    String firstname;
-    String country;
     String password;
-    @Enumerated(EnumType.STRING)
-    Role role;
+
+    @ManyToOne
+    @JoinColumn(name = "rol_id", nullable = false)
+    private Rol rol;
+    
+    //@Enumerated(EnumType.STRING)
+    //Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority((role.name())));
+        return List.of(new SimpleGrantedAuthority((rol.getNombreRol())));
     }
 
     @Override
